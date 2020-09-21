@@ -31,6 +31,12 @@ public class RegisterChrome {
         GridLauncherV3.main(new String[] { "-role", "node", "-hub",
                 "http://localhost:4444/grid/register", "-browser",
                 "browserName=chrome", "-port", "5555" });
+
+
+
+
+
+
     }
 
 }

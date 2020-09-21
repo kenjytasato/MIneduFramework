@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SmokeTest" verbose="2" parallel="classes" thread-count="2"
+    data-provider-thread-count="3">
+    <test name="SmokeTest">
+        <classes>
+            <class name="Taringa.test.Post_test">
+            </class>
+
+            <class name="Taringa.test.Shout_test">
+            </class>
+
+            <class name="Taringa.test.commonLogin_test">
+            </class>
+
+            <class name="Taringa.test.facebookLogin_test">
+            </class>
+
+            <class name="Taringa.test.gmailLogin_test">
+            </class>
+
+        </classes>
+    </test>
+
+</suite>
