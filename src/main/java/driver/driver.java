@@ -2,6 +2,7 @@ package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.Properties;
@@ -19,21 +21,6 @@ import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class driver {
-
-
-
-    //*[@id="content"]/div/header/nav/div/div[2]/ul[2]/li[3]/span
-    @FindBy( xpath ="//*[@id='content']/div/header/nav/div/div[2]/ul[2]/li[3]/span")
-    WebElement tagUser_btn;
-    //cerrar sesion
-
-    @FindBy(xpath="//*[@id='content']/div/header/nav/div/div[2]/ul[2]/div/div[6]/div/span")
-    WebElement signOut_label;
-//home bar
-    @FindBy(name="//*[@id='content']/div/header/nav/div/div[2]")
-    WebElement home_bar;
-
-
 
     public Properties p=null;
     public WebDriver driver;
@@ -85,38 +72,36 @@ public class driver {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementoPath)));
 
     }
-    public void customWait_xpath (By taringaPath)
+    public void customWait_xpath (By minedupath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(presenceOfElementLocated(taringaPath));
+        wait.until(presenceOfElementLocated(minedupath));
     }
-    public void customWait_clickable (By taringaPath)
+    public void customWait_clickable (By minedupath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(elementToBeClickable(taringaPath));
+        wait.until(elementToBeClickable(minedupath));
     }
 
 
 
-    public void send_keys(By taringaElement, String taringainput)
-    { driver.findElement(taringaElement).sendKeys(taringainput);
+    public void send_keys(By mineduElement, String mineduInput)
+    { driver.findElement(mineduElement).sendKeys(mineduInput);
 
     }
     public void goto_url(String url_address) throws InterruptedException {
         driver.get(url_address);
-        Thread.sleep(5000);
-    }
-    public void findelemento(By taringaPath)
-    {
-        driver.findElement(taringaPath);
+        Thread.sleep(6000);
     }
 
 
-    public void click (By taringapath)
+
+    public void click (By mineduPath)
     {
-        driver.findElement(taringapath).click();
+        driver.findElement(mineduPath).click();
            }
-    public void switchWindows()
+
+           public void switchWindows()
     {
         // Store the current window handle
         String winHandleBefore = driver.getWindowHandle();
@@ -150,22 +135,23 @@ public class driver {
     driver.findElement(form).submit();
     }
 
-    public void signoutpre() {
-
-        tagUser_btn.click();
-    }
-    public void signoutpost() {
-
-
-        signOut_label.click();
-    }
-
     public Properties return_Prop() {
 
         return p;
     }
 
 
+////////////////////////////////////minedu///////////////////////////////////////
 
+    public boolean missingImageElement(WebElement ImageElement)
+    {   Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageElement);
+        return ImagePresent;
+    }
+
+    public boolean missingElement(WebElement Element)
+    {   Boolean response = null;
+        response = Element.isDisplayed() && Element.isEnabled();
+        return response;
+    }
 
 }

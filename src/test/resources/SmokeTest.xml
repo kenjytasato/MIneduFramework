@@ -3,22 +3,10 @@
     data-provider-thread-count="3">
     <test name="SmokeTest">
         <classes>
-            <class name="Taringa.test.Post_test">
+            <class name="Minedu.test.LandingTest">
             </class>
 
-            <class name="Taringa.test.Shout_test">
-            </class>
-
-            <class name="Taringa.test.commonLogin_test">
-            </class>
-
-            <class name="Taringa.test.facebookLogin_test">
-            </class>
-
-            <class name="Taringa.test.gmailLogin_test">
-            </class>
-
-        </classes>
+             </classes>
     </test>
 
 </suite>
