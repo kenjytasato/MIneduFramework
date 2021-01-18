@@ -21,6 +21,9 @@ public class personType {
     @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[2]/button")
     WebElement continueBtn;
 
+    @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[1]/button")
+    WebElement cancelBtn;
+
     /*
     @FindBy(xpath="")
     WebElement createArticle;
@@ -33,9 +36,23 @@ public class personType {
         PageFactory.initElements(this.Driver.returnDriver(), this);
     }
 
-public void getTitle()
+public void selectPersonal()
 {
+personalTitle.click();
+}
 
+public void selectTutor()
+{
+    tutorTitle.click();
+}
+public void pressContinue()
+{
+    continueBtn.click();
+}
+
+public void pressCancel()
+{
+    cancelBtn.click();
 }
 
 

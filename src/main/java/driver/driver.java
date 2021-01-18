@@ -1,10 +1,8 @@
 package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -13,8 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +24,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class driver {
 
     public Properties p=null;
+    public Properties p1=null;
+    public Properties p2=null;
     public WebDriver driver;
     public FileReader reader=null;
     public WebDriver returnDriver()
@@ -48,21 +51,60 @@ public class driver {
     {
         setupClass();
         setupTest();
+        initiateLocators();
+        initiateReport();
+        initiateVariables();
 
+
+        PageFactory.initElements(this.driver, this);
+    }
+    public void initiateVariables()
+    {
         try{
             String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/variables.properties";
             FileReader readeri =new FileReader(prop_path);
             reader = readeri;
             p = new Properties();
             p.load(reader);
-            }
+        }
         catch(Exception e)
         {
             System.out.println("el archivo de variables del sitio no se cargo de manera adecuada");
             e.printStackTrace();
         }
-        PageFactory.initElements(this.driver, this);
     }
+    public void initiateReport()
+    {
+        try{
+            String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/reportConfig.properties";
+            FileReader readeri =new FileReader(prop_path);
+            reader = readeri;
+            p1 = new Properties();
+            p1.load(reader);
+        }
+        catch(Exception e)
+        {
+            System.out.println("el archivo de reporte no se inicializo de manera adecuada");
+            e.printStackTrace();
+        }
+    }
+    public void initiateLocators()
+    {
+        try{
+            String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/locators.properties";
+            FileReader readeri =new FileReader(prop_path);
+            reader = readeri;
+            p2 = new Properties();
+            p2.load(reader);
+        }
+        catch(Exception e)
+        {
+            System.out.println("el archivo de locators no se inicializo de manera adecuada");
+            e.printStackTrace();
+        }
+    }
+
+
     public void explicitWait(WebElement element)
     {
         String elementoClass = element.getAttribute("class");
@@ -70,7 +112,6 @@ public class driver {
         String elementoPath = "//div[@class='"+ elementoClass + "']";
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementoPath)));
-
     }
     public void customWait_xpath (By minedupath)
     {
@@ -141,7 +182,7 @@ public class driver {
     }
 
 
-////////////////////////////////////minedu///////////////////////////////////////
+
 
     public boolean missingImageElement(WebElement ImageElement)
     {   Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageElement);
@@ -152,6 +193,21 @@ public class driver {
     {   Boolean response = null;
         response = Element.isDisplayed() && Element.isEnabled();
         return response;
+    }
+
+
+    public  String takeScreenshot() throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File scrFile = ts.getScreenshotAs(OutputType.FILE);
+        String timeStamp = new SimpleDateFormat("_yyyMMdd_hhmmss").format(System.currentTimeMillis());
+        String img = "image"+timeStamp+".png";
+        FileUtils.copyFile(scrFile,new File("Report//screenshots//"+img));
+        return img;
+    }
+    public void scroll(int x)
+    {
+        ((JavascriptExecutor) driver).executeScript("scroll(0,"+x +")");
+
     }
 
 }

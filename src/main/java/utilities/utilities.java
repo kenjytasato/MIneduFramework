@@ -3,6 +3,7 @@ package utilities;
 import driver.driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -80,6 +81,8 @@ public class utilities {
         };
         new WebDriverWait(driver, 30).until(waitForElementHasText);
     }
+
+
 
 
 }

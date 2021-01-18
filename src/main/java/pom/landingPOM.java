@@ -2,6 +2,7 @@ package pom;
 
 import driver.driver;
 import pages.applyForCertificatePage;
+import pages.termsAndConditionsPage;
 
 public class landingPOM {
 
@@ -31,6 +32,12 @@ public class landingPOM {
         afc.clickAcceptBtn();
         Driver.implicitwait();
         Driver.implicitwait();
+
+        termsAndConditionsPage tyc = new termsAndConditionsPage (Driver);
+        tyc.checkcheckbox();
+        tyc.ClickAcceptButton();
+        Driver.implicitwait();
+
 
     }
 
