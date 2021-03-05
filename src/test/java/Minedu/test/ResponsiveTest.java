@@ -7,16 +7,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.landingPage;
 import pom.aplicantTypeStudientPOM;
-import pom.applyForCertificatePOM;
 import pom.landingPOM;
 import pom.personTypePOM;
 import utilities.report;
 
 import java.text.ParseException;
 
-public class  LandingTest {
+public class ResponsiveTest {
 
     driver Driver = null;
     WebElement we = null;
@@ -66,29 +64,39 @@ public class  LandingTest {
     @Test(priority = 2, testName = ("e2e"))
     public void test() throws InterruptedException, ParseException {
 
-        //Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/certificate");
-
+        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
         landingPOM lp = new landingPOM(Driver);
+        lp.applyForCertificate();
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
         personTypePOM ptP = new personTypePOM(Driver);
-
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
-        afcp.fillForm("department","province", "district", "modularCode");
+ //       lp.fillForm();
         ptP.selectPersonal();
-        Driver.implicitwait();
+        atd.fillForm("ZENON", "MARIA DILCIA", "2001", "dic", "25", 77534344);
 
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
-
-        Assert.assertEquals( lp.checkmodularCode(), "0334722" );
+        Assert.assertEquals(lp.checkmodularCode(), "0334722");
 
         Driver.implicitwait();
-
-
-
-
-
     }
+
+        @Test(priority = 3, testName = ("HU001"))
+                public void test96()
+        {
+        }
+    @Test(priority = 3, testName = ("HU002-1"))
+    /*Usuario cuente con permisos para emitir certificado para la I.E. y selecciona en el menú y submenú la opción "Mi Certificado"*/
+    public void HU002_1()
+    {
+    }
+    @Test(priority = 3, testName = ("HU002-2"))
+    /*Usuario cuente con permisos para emitir certificado para la I.E. y selecciona en el menú y submenú la opción "Mi Certificado"*/
+    public void HU002_2()
+    {
+    }
+
+
+
+
+
     @AfterClass
     public void teardown()
     {   Driver.driver.manage().deleteAllCookies();

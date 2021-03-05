@@ -23,157 +23,183 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class driver {
 
-    public Properties p=null;
-    public Properties p1=null;
-    public Properties p2=null;
+    public Properties p = null;
+    public Properties p1 = null;
+    public Properties p2 = null;
     public WebDriver driver;
-    public FileReader reader=null;
-    public WebDriver returnDriver()
-    {
+    public FileReader reader = null;
+
+    public WebDriver returnDriver() {
         return driver;
     }
 
-    public static void setupClass()
-    {
-        WebDriverManager.chromedriver().setup();
+    public static void setupClass(int i) {
+
+        switch(i) {
+            case 1:
+                WebDriverManager.chromedriver().setup();
+
+                break;
+            case 2:
+                WebDriverManager.firefoxdriver().setup();
+                break;
+            case 3:
+                WebDriverManager.edgedriver().setup();
+                break;
+            default:
+
+        }
+             }
+
+
+
+    public static void setupMobileClass(int i, int x , int y) {
+        switch(i) {
+            case 1:
+                WebDriverManager.chromedriver().setup();
+                break;
+            case 2:
+                WebDriverManager.firefoxdriver().setup();
+                break;
+            case 3:
+                WebDriverManager.edgedriver().setup();
+                break;
+            default:
+
+        }
     }
+
     public void setupTest() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-           }
+    }
 
     public void teardown() {
         if (driver != null) {
             driver.quit();
         }
     }
-    public driver()
+
+    public driver(int i ,int x, int y)
     {
-        setupClass();
+        setupClass(i);
         setupTest();
         initiateLocators();
         initiateReport();
         initiateVariables();
+        PageFactory.initElements(this.driver, this);
 
+    }
 
+    public driver(int i) {
+        setupClass(i);
+        setupTest();
+        initiateLocators();
+        initiateReport();
+        initiateVariables();
         PageFactory.initElements(this.driver, this);
     }
-    public void initiateVariables()
-    {
-        try{
-            String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/variables.properties";
-            FileReader readeri =new FileReader(prop_path);
+
+    public void initiateVariables() {
+        try {
+            String prop_path = System.getProperty("user.dir") + System.getProperty("file.separator") + "env/variables.properties";
+            FileReader readeri = new FileReader(prop_path);
             reader = readeri;
             p = new Properties();
             p.load(reader);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("el archivo de variables del sitio no se cargo de manera adecuada");
             e.printStackTrace();
         }
     }
-    public void initiateReport()
-    {
-        try{
-            String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/reportConfig.properties";
-            FileReader readeri =new FileReader(prop_path);
+
+    public void initiateReport() {
+        try {
+            String prop_path = System.getProperty("user.dir") + System.getProperty("file.separator") + "env/reportConfig.properties";
+            FileReader readeri = new FileReader(prop_path);
             reader = readeri;
             p1 = new Properties();
             p1.load(reader);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("el archivo de reporte no se inicializo de manera adecuada");
             e.printStackTrace();
         }
     }
-    public void initiateLocators()
-    {
-        try{
-            String prop_path = System.getProperty("user.dir")+System.getProperty("file.separator")+"env/locators.properties";
-            FileReader readeri =new FileReader(prop_path);
+
+    public void initiateLocators() {
+        try {
+            String prop_path = System.getProperty("user.dir") + System.getProperty("file.separator") + "env/locators.properties";
+            FileReader readeri = new FileReader(prop_path);
             reader = readeri;
             p2 = new Properties();
             p2.load(reader);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("el archivo de locators no se inicializo de manera adecuada");
             e.printStackTrace();
         }
     }
 
 
-    public void explicitWait(WebElement element)
-    {
-        String elementoClass = element.getAttribute("class");
-        System.out.println(elementoClass);
-        String elementoPath = "//div[@class='"+ elementoClass + "']";
-        WebDriverWait wait = new WebDriverWait(driver,30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementoPath)));
+    public void explicitWait(WebElement element) {
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        //wait.until(ExpectedConditions.visibilityOf(element));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
-    public void customWait_xpath (By minedupath)
-    {
+
+    public void customWait_xpath(By minedupath) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(presenceOfElementLocated(minedupath));
     }
-    public void customWait_clickable (By minedupath)
-    {
+
+    public void customWait_clickable(By minedupath) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(elementToBeClickable(minedupath));
     }
 
 
-
-    public void send_keys(By mineduElement, String mineduInput)
-    { driver.findElement(mineduElement).sendKeys(mineduInput);
+    public void send_keys(By mineduElement, String mineduInput) {
+        driver.findElement(mineduElement).sendKeys(mineduInput);
 
     }
+
     public void goto_url(String url_address) throws InterruptedException {
         driver.get(url_address);
         Thread.sleep(6000);
     }
 
 
-
-    public void click (By mineduPath)
-    {
+    public void click(By mineduPath) {
         driver.findElement(mineduPath).click();
-           }
+    }
 
-           public void switchWindows()
+    public void switchWindows()
     {
         // Store the current window handle
         String winHandleBefore = driver.getWindowHandle();
 // Perform the click operation that opens new window
 // Switch to new window opened
-        for(String winHandle : driver.getWindowHandles()){
+        for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
 // Perform the actions on new window
 // Close the new window, if that window no more required
 //   driver.close();
 // Switch back to original browser (first window)
-    //    driver.switchTo().window(winHandleBefore);
-
-
+        //    driver.switchTo().window(winHandleBefore);
     }
 
     public void implicitwait() {
 
-        try{
+        try {
             Thread.sleep(5000);
-        }
-        catch(InterruptedException ie){
+        } catch (InterruptedException ie) {
         }
     }
 
 
-
-
     public void submit(By form) {
-    driver.findElement(form).submit();
+        driver.findElement(form).submit();
     }
 
     public Properties return_Prop() {
@@ -182,32 +208,52 @@ public class driver {
     }
 
 
-
-
-    public boolean missingImageElement(WebElement ImageElement)
-    {   Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageElement);
+    public boolean missingImageElement(WebElement ImageElement) {
+        Boolean ImagePresent = (Boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageElement);
         return ImagePresent;
     }
 
-    public boolean missingElement(WebElement Element)
-    {   Boolean response = null;
+    public boolean missingElement(WebElement Element) {
+        Boolean response = null;
         response = Element.isDisplayed() && Element.isEnabled();
         return response;
     }
 
 
-    public  String takeScreenshot() throws IOException {
+    public String takeScreenshot() throws IOException {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File scrFile = ts.getScreenshotAs(OutputType.FILE);
         String timeStamp = new SimpleDateFormat("_yyyMMdd_hhmmss").format(System.currentTimeMillis());
-        String img = "image"+timeStamp+".png";
-        FileUtils.copyFile(scrFile,new File("Report//screenshots//"+img));
+        String img = "image" + timeStamp + ".png";
+        FileUtils.copyFile(scrFile, new File("Report//screenshots//" + img));
         return img;
     }
-    public void scroll(int x)
+
+    public void scroll(int x) {
+        ((JavascriptExecutor) driver).executeScript("scroll(0," + x + ")");
+
+    }
+    public WebElement findby(String xpath)
     {
-        ((JavascriptExecutor) driver).executeScript("scroll(0,"+x +")");
+       return driver.findElement(By.xpath(xpath));
+    }
+
+
+    public void superwait() {
+implicitwait();
+        implicitwait();
+        implicitwait();
+        implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();
+        implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();
+        implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();
 
     }
 
+    public void longexplicitWait(WebElement element) {
+
+
+            WebDriverWait wait = new WebDriverWait(driver, 200);
+            wait.until(ExpectedConditions.visibilityOf(element));
+
+    }
 }

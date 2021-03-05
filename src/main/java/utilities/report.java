@@ -2,16 +2,13 @@ package utilities;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.sun.codemodel.internal.JCatchBlock;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import java.io.FileReader;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
+import java.sql.Timestamp;
+
 
 public class report {
 
@@ -42,7 +39,7 @@ public class report {
         }
 
 
-        ExtentHtmlReporter reporter = new ExtentHtmlReporter("./src/main/resources/Reports/omg.html");
+        ExtentHtmlReporter reporter = new ExtentHtmlReporter("./src/main/resources/Reports/" + timestamp() +".html");
         reporter.config().setDocumentTitle(p.getProperty("title"));
         reporter.config().setReportName(p.getProperty("reportName"));
 
@@ -59,6 +56,16 @@ public class report {
 
 
     }
+
+    public String timestamp()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp);
+        return timestamp.toString();
+    }
+
+
 
     public void createTest(String testName) {
         logger = extent.createTest(testName);
@@ -86,6 +93,11 @@ public class report {
 
     public void generateReport() {
         extent.flush();
+    }
+
+    public void skip(String failMsg)
+    {
+        logger.log(Status.SKIP, failMsg);
     }
 
 

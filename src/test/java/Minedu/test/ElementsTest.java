@@ -16,7 +16,7 @@ import utilities.report;
 
 import java.text.ParseException;
 
-public class  LandingTest {
+public class  ElementsTest {
 
     driver Driver = null;
     WebElement we = null;
@@ -34,7 +34,32 @@ public class  LandingTest {
         Report = new report();
     }
 
-/*
+    @Test(priority = 0)
+    public void elementsPresent() throws InterruptedException {
+        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        Driver.implicitwait();
+        landingPage LpTest = new landingPage(Driver);
+
+        try {
+            Assert.assertEquals(LpTest.checkElementsMineduLogo(), true );
+            Assert.assertEquals(LpTest.checkElementsCertificadoEstudiosTitle() , true );
+            Assert.assertEquals(LpTest.checkElementsInformativeText() , true );
+            Assert.assertEquals(LpTest.checkElementsmultipleCertificateBtn() , true );
+            Assert.assertEquals(LpTest.checkElementsmultipleCertificateImage() , true );
+            Assert.assertEquals(LpTest.checkElementsmultipleCertificateText() , true );
+            Assert.assertEquals(LpTest.checkElementssemiFooterBody() , true );
+            Assert.assertEquals(LpTest.checkElementssemiFooterTitle() , true );
+            Assert.assertEquals(LpTest.checkElementssingleCertificateBtn() , true );
+            Assert.assertEquals(LpTest.checkElementssingleCertificateImage() , true );
+            Assert.assertEquals(LpTest.checkElementssingleCertificateText() , true );
+            System.out.println("todos los elementos son visibles");
+
+
+        } catch (Throwable e) {
+            System.out.println("no se ve");
+        }
+    }
+
     @Test(priority = 1, testName = ("demo"))
     public void commonLogin() throws InterruptedException {
 
@@ -42,7 +67,10 @@ public class  LandingTest {
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/certificate");
 
         landingPOM lp = new landingPOM(Driver);
-        lp.fillForm();
+
+        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
+        afcp.fillForm("department","province", "district", "modularCode");
+        lp.applyForCertificate();
         Assert.assertEquals( lp.checkmodularCode(), "0334722" );
 
         /*
@@ -59,9 +87,9 @@ public class  LandingTest {
         afc.clickAcceptBtn();
         Driver.implicitwait();
         Driver.implicitwait();
+*/
 
-
-    }*/
+    }
 
     @Test(priority = 2, testName = ("e2e"))
     public void test() throws InterruptedException, ParseException {
@@ -73,15 +101,19 @@ public class  LandingTest {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
         personTypePOM ptP = new personTypePOM(Driver);
 
+
+
         applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
         afcp.fillForm("department","province", "district", "modularCode");
+        lp.acceptTermAndConditions();
         ptP.selectPersonal();
         Driver.implicitwait();
-
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2000","dic","13",77534344);
 
         Assert.assertEquals( lp.checkmodularCode(), "0334722" );
 
+
+        Driver.implicitwait();      Driver.implicitwait();
         Driver.implicitwait();
 
 

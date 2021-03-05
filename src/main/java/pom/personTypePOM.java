@@ -29,4 +29,9 @@ public class personTypePOM {
         perType.selectTutor();
         perType.pressContinue();
     }
+
+    public void doNothingWaitForAlert()
+    {
+        perType.waitmodalAlert();
+    }
 }

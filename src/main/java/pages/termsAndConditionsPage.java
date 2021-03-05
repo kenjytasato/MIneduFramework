@@ -22,6 +22,17 @@ public class termsAndConditionsPage {
     @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[2]/button")
     WebElement acceptButton;
 
+    @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[1]/button")
+    WebElement cancelButton;
+
+    @FindBy(xpath="/html/body/div[10]/div[3]/div/div[3]/button[2]")
+    WebElement confirmacceptButton;
+
+    @FindBy(xpath="/html/body/div[10]/div[3]/div/div[3]/button[1]")
+    WebElement confirmcancelButton;
+
+
+
     public termsAndConditionsPage(driver driver) {
 
         this.Driver = driver;
@@ -45,5 +56,18 @@ public class termsAndConditionsPage {
 
     public void ClickAcceptButton() {
             acceptButton.click();
+    }
+
+    public void cancel() {
+    cancelButton.click();
+    Driver.explicitWait(confirmacceptButton);
+    confirmacceptButton.click();
+    }
+
+    public void cancelandcontinue() {
+        cancelButton.click();
+        Driver.explicitWait(confirmcancelButton);
+        confirmcancelButton.click();
+
     }
 }

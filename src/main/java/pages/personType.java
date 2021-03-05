@@ -24,10 +24,12 @@ public class personType {
     @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[1]/button")
     WebElement cancelBtn;
 
-    /*
-    @FindBy(xpath="")
-    WebElement createArticle;
-    */
+    @FindBy(xpath="/html/body/div[8]/div[3]/div")
+    WebElement modalAlert;
+
+    @FindBy(xpath="/html/body/div[8]/div[3]/div/div[3]/button")
+    WebElement modalAlertacceptButton;
+
 
 
     public personType(driver driver) {
@@ -38,7 +40,8 @@ public class personType {
 
 public void selectPersonal()
 {
-personalTitle.click();
+    //Driver.explicitWait(personalTitle);
+    personalTitle.click();
 }
 
 public void selectTutor()
@@ -55,7 +58,19 @@ public void pressCancel()
     cancelBtn.click();
 }
 
+    public boolean modalAlertText()
+    {
+        return   modalAlert.isDisplayed();
+    }
 
+    public boolean modalAlertbtn()
+    {
+
+        return   modalAlertacceptButton.isDisplayed();
+    }
+
+    public void waitmodalAlert()
+    {Driver.longexplicitWait(modalAlert);}
 
 
 

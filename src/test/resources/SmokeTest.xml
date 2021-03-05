@@ -3,7 +3,10 @@
     data-provider-thread-count="3">
     <test name="SmokeTest">
         <classes>
-            <class name="Minedu.test.LandingTest">
+            <class name="Minedu.test.CED002">
+            </class>
+
+            <class name="Minedu.test.CED003">
             </class>
 
              </classes>

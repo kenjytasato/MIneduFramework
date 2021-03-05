@@ -106,9 +106,12 @@ public class applyForCertificatePage {
     public void selectDepartmentComboValue(String value) {
 
         Actions builder = new Actions(Driver.returnDriver());
+        Driver.explicitWait(departmentCbx);
         builder.moveToElement(departmentCbx).click().perform();
         builder.moveToElement(departmentCbx).sendKeys(value).perform();
-        String aux1 =  departmentElement1 + Driver.return_Prop().getProperty("d" +value) + departmentElement2 ;
+
+        String aux1 =  departmentElement1 + Driver.return_Prop().getProperty("d"+value) + departmentElement2 ;
+
         WebElement departmentElement = Driver.driver.findElement(By.xpath(aux1));
         builder.moveToElement(departmentElement).click().perform();
         Driver.implicitwait();
@@ -117,9 +120,10 @@ public class applyForCertificatePage {
     public void selectProvinceComboValue(String value) {
 
         Actions builder = new Actions(Driver.returnDriver());
+        Driver.explicitWait(provinceCbx);
         builder.moveToElement(provinceCbx).click().perform();
         builder.moveToElement(provinceCbx).sendKeys(value).perform();
-        String aux2 =  provinceElement1 + Driver.return_Prop().getProperty("p" + value) + provinceElement2 ;
+        String aux2 =  provinceElement1 + Driver.return_Prop().getProperty("p"+value) + provinceElement2 ;
         WebElement departmentElement = Driver.driver.findElement(By.xpath(aux2));
         builder.moveToElement(departmentElement).click().perform();
         Driver.implicitwait();
@@ -129,6 +133,7 @@ public class applyForCertificatePage {
 
         Driver.explicitWait(districtCbx);
         Actions builder = new Actions(Driver.returnDriver());
+        Driver.explicitWait(districtCbx);
         builder.moveToElement(districtCbx).click().perform();
         builder.moveToElement(districtCbx).sendKeys(value).perform();
         String aux1 =  districtElement1 + Driver.return_Prop().getProperty("di" +value) + districtElement2 ;
@@ -157,4 +162,24 @@ public class applyForCertificatePage {
     {
         acceptButton.click();
     }
+
+
+    public boolean checkPresentLogo()
+    {boolean present = Driver.missingElement(CertificadoEstudiosTitle);
+    return present;
+    }
+
+
+    public String returnDescription() {
+
+        String description = bodyText.getText();
+        return description;
+    }
+
+    public String returnTabDescription() {
+
+        String tabDescription = tabTitle.getText();
+        return tabDescription;
+    }
+
 }

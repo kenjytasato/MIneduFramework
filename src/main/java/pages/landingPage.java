@@ -29,12 +29,13 @@ public class landingPage {
     @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div[2]/div[1]/div/div[2]/button")
     WebElement singleCertificateBtn;
 
+
     //SingleCertificate Modal
     @FindBy(xpath="//*[@id='classic-modal-slide-description']")
     WebElement SingleCertificateModalText;
-    @FindBy(xpath="/html/body/div[2]/div[3]/div/div[2]/button[1]")
+    @FindBy(xpath="/html/body/div[4]/div[3]/div/div[2]/button[1]")
     WebElement CancelBtn;
-    @FindBy(xpath="/html/body/div[2]/div[3]/div/div[2]/button[2]")
+    @FindBy(xpath="/html/body/div[4]/div[3]/div/div[2]/button[2]")
     WebElement AcceptBtn;
     /////////
 
@@ -118,14 +119,28 @@ public class landingPage {
 
     public void applyForCertificate()
     {
+        Driver.explicitWait(singleCertificateBtn);
         singleCertificateBtn.click();
-        Driver.implicitwait();
+
 
     }
+    public void pressCertificateAccept()
+    {
+        Driver.explicitWait(AcceptBtn);
+        AcceptBtn.click();
+    }
+
+    public void pressCertificateCancel()
+    {
+        Driver.explicitWait(CancelBtn);
+        CancelBtn.click();
+    }
+
     public void checkCertificate()
     {
         CheckCertificateBtn.click();
-        Driver.implicitwait();
+
+
     }
 
 

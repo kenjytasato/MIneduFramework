@@ -144,6 +144,13 @@
             <artifactId>extentreports</artifactId>
             <version>3.1.5</version>
         </dependency>
+
+        <!-- for responsive testing-->
+        <dependency>
+            <groupId>com.testautomationguru.ocular</groupId>
+            <artifactId>ocular</artifactId>
+            <version>1.0.0.Alpha</version>
+        </dependency>
     </dependencies>
 
     <build>
