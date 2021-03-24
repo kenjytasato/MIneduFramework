@@ -1,24 +1,18 @@
 package Minedu.test;
 
 import driver.driver;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.landingPage;
-import pom.aplicantTypeStudientPOM;
-import pom.applyForCertificatePOM;
-import pom.landingPOM;
-import pom.personTypePOM;
-import utilities.report;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.Dimension;
 
-import java.text.ParseException;
-import java.util.List;
+import utilities.report;
+
 
 public class CED001 {
 
@@ -27,76 +21,43 @@ public class CED001 {
     report Report = null;
 
     @BeforeClass
-    public void setupEnv() {
-        Driver = new driver(1);
+    public void setupEnv(ITestContext context) {
+        Driver = new driver(1, 375, 812);
+        context.setAttribute("Driver", Driver);
 
     }
+
 
     @BeforeMethod
     public void beforeMethod() {
 
-        System.out.println("Starting Demo Testing Minedu");
+        System.out.println("Starting CED001 tests");
         Report = new report();
     }
 
-    @Test(priority = 1, testName = ("demo"))
-    public void commonLogin() throws InterruptedException {
-
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-        Point point;
-        Dimension dimension;
-
-        List<WebElement> elementsList = Driver.returnDriver().findElements(By.xpath("//some/xpath"));
-
-        for (WebElement element : elementsList)
-        {
-            point = element.getLocation();
-            dimension = element.getSize();
-            System.out.println("Element name: " + element.getTagName());
-            System.out.println("Element size: " + dimension.height + "x" + dimension.width);
-            System.out.println("Element location: " + point.x + ":" + point.y);
-        }
-
-    }
-/*
-    @Test(priority = 1, testName = ("CED002"))
-    public void CED002() throws InterruptedException, ParseException {
-
-        landingPOM lp = new landingPOM(Driver);
-        aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
-        personTypePOM ptP = new personTypePOM(Driver);
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
-
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-
-        lp.applyForCertificate();
-        afcp.fillForm("department", "province", "district", "modularCode");
-        lp.acceptTermAndConditions();
-        ptP.selectPersonal();
-        atd.fillForm("ZENON", "MARIA DILCIA", "2001", "dic", "25", 77534344);
-        Assert.assertEquals(lp.checkmodularCode(), "0334722");
-    }*/
+    @Test(priority = 1, testName = ("responsive testing"))
+    public void CED00001_responsive_test() throws InterruptedException {
 
 
+      Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
 
-    /*
-    @Test(priority = 2, testName = ("CED004_2 - Quiero ingresar a una opcion tipo de usuario-tutor"))
-    public void CED004_2() throws InterruptedException, ParseException {
 
-        landingPOM lp = new landingPOM(Driver);
         landingPage LpTest = new landingPage(Driver);
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
 
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-        lp.applyForCertificate();
-        lp.acceptTerms();
-        afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectTutor();
-        ptP.doNothingWaitForAlert();
+        Assert.assertEquals(LpTest.checkElementsMineduLogo(), true);
+        Assert.assertEquals(LpTest.checkElementsCertificadoEstudiosTitle(), true);
+        Assert.assertEquals(LpTest.checkElementsInformativeText(), true);
+        Assert.assertEquals(LpTest.checkElementsmultipleCertificateBtn(), true);
+        Assert.assertEquals(LpTest.checkElementsmultipleCertificateImage(), true);
+        Assert.assertEquals(LpTest.checkElementsmultipleCertificateText(), true);
+        Assert.assertEquals(LpTest.checkElementssemiFooterBody(), true);
+        Assert.assertEquals(LpTest.checkElementssemiFooterTitle(), true);
+        Assert.assertEquals(LpTest.checkElementssingleCertificateBtn(), true);
+        Assert.assertEquals(LpTest.checkElementssingleCertificateImage(), true);
+        Assert.assertEquals(LpTest.checkElementssingleCertificateText(), true);
+
+
     }
-*/
-
 
 
     @AfterClass

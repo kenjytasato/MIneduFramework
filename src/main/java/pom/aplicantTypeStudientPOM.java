@@ -23,18 +23,21 @@ public class aplicantTypeStudientPOM {
 
     }
 
-    public void fillForm(String Fname, String Mname, String year, String month, String day, int dni) throws InterruptedException, ParseException {
+    public void fillForm(String Fname, String Mname, String year, String month, String day, int dni, String dep , String prov, String dis) throws InterruptedException, ParseException {
 
     perPage.WriteFatherName(Fname);
     perPage.WriteMotherName(Mname);
     perPage.selectDate(year,month,day);
     perPage.WriteDNI(dni);
 
-    perPage.selectDepartmentComboValue(driver.return_Prop().getProperty("departmentCED009_1_2"));
-    perPage.selectProvinceComboValue(driver.return_Prop().getProperty("provinceCED009_1_2"));
-    perPage.selectDistrictComboValue(driver.return_Prop().getProperty("districtCED009_1_2"));
-    //perPage.pressAccept();
+   // perPage.selectDepartmentComboValue(driver.return_Prop().getProperty("departmentCED009_1_2"));
+   // perPage.selectProvinceComboValue(driver.return_Prop().getProperty("provinceCED009_1_2"));
+   // perPage.selectDistrictComboValue(driver.return_Prop().getProperty("districtCED009_1_2"));
 
+
+        perPage.selectDepartmentComboValue(driver.return_Prop().getProperty(dep));
+        perPage.selectProvinceComboValue(driver.return_Prop().getProperty(prov));
+        perPage.selectDistrictComboValue(driver.return_Prop().getProperty(dis));
 
     }
 

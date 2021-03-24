@@ -74,7 +74,7 @@ public class MineduTest {
         atd.fillForm("ZENON", "MARIA DILCIA", "2001", "dic", "25", 77534344);
         Assert.assertEquals(lp.checkmodularCode(), "0334722");
     }*/
-
+/*
     @Test(priority = 2, testName = ("CED002 - // Quiero ingresar a la opción 'Solicitar Constancia'"))
     public void CED002() throws InterruptedException, ParseException {
 

@@ -34,4 +34,9 @@ public class personTypePOM {
     {
         perType.waitmodalAlert();
     }
+
+    public boolean checkdoNothingButton()
+    {
+     return    perType.modalAlertbtn();
+    }
 }

@@ -3,6 +3,7 @@ package driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -11,10 +12,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +42,6 @@ public class driver {
         switch(i) {
             case 1:
                 WebDriverManager.chromedriver().setup();
-
                 break;
             case 2:
                 WebDriverManager.firefoxdriver().setup();
@@ -53,24 +56,16 @@ public class driver {
 
 
 
-    public static void setupMobileClass(int i, int x , int y) {
-        switch(i) {
-            case 1:
-                WebDriverManager.chromedriver().setup();
-                break;
-            case 2:
-                WebDriverManager.firefoxdriver().setup();
-                break;
-            case 3:
-                WebDriverManager.edgedriver().setup();
-                break;
-            default:
-
-        }
-    }
 
     public void setupTest() {
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    }
+
+    public void setupTest(int x, int y) {
+        driver = new ChromeDriver();
+        Dimension dimension = new Dimension(x, y);
+        driver.manage().window().setSize(dimension);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
@@ -83,9 +78,9 @@ public class driver {
     public driver(int i ,int x, int y)
     {
         setupClass(i);
-        setupTest();
+        setupTest(x,y);
         initiateLocators();
-        initiateReport();
+     //   initiateReport();
         initiateVariables();
         PageFactory.initElements(this.driver, this);
 
@@ -95,8 +90,9 @@ public class driver {
         setupClass(i);
         setupTest();
         initiateLocators();
-        initiateReport();
+     //   initiateReport();
         initiateVariables();
+
         PageFactory.initElements(this.driver, this);
     }
 
@@ -142,7 +138,7 @@ public class driver {
 
     public void explicitWait(WebElement element) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         //wait.until(ExpectedConditions.visibilityOf(element));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -220,13 +216,13 @@ public class driver {
     }
 
 
-    public String takeScreenshot() throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File scrFile = ts.getScreenshotAs(OutputType.FILE);
-        String timeStamp = new SimpleDateFormat("_yyyMMdd_hhmmss").format(System.currentTimeMillis());
-        String img = "image" + timeStamp + ".png";
-        FileUtils.copyFile(scrFile, new File("Report//screenshots//" + img));
-        return img;
+    public String takeScreenshot(String methodName) throws IOException {
+
+        File tmpFile = new File("" + Paths.get(System.getProperty("java.io.tmpdir"), methodName + ".png"));
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, tmpFile);
+        return tmpFile.getAbsolutePath();
+
     }
 
     public void scroll(int x) {
@@ -240,7 +236,7 @@ public class driver {
 
 
     public void superwait() {
-implicitwait();
+        implicitwait();
         implicitwait();
         implicitwait();
         implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();implicitwait();
@@ -255,5 +251,12 @@ implicitwait();
             WebDriverWait wait = new WebDriverWait(driver, 200);
             wait.until(ExpectedConditions.visibilityOf(element));
 
+    }
+    public String timestamp()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp);
+        return timestamp.toString();
     }
 }

@@ -24,11 +24,14 @@ public class personType {
     @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div/div/div/div/div[3]/div[1]/button")
     WebElement cancelBtn;
 
-    @FindBy(xpath="/html/body/div[8]/div[3]/div")
+    @FindBy(xpath="/html/body/div[10]/div[3]/div")
+
     WebElement modalAlert;
 
-    @FindBy(xpath="/html/body/div[8]/div[3]/div/div[3]/button")
+    @FindBy(xpath="/html/body/div[10]/div[3]/div/div[3]/button")
     WebElement modalAlertacceptButton;
+
+
 
 
 

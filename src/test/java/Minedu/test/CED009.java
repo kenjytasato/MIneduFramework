@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -27,8 +28,10 @@ public class CED009 {
     aplicantTypeStudientPOM atd = null;
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
+        context.setAttribute("Driver", Driver);
+
         lp = new landingPOM(Driver);
         afcp = new applyForCertificatePOM(Driver);
         att = new aplicantTypeTutorPOM(Driver);
@@ -42,24 +45,23 @@ public class CED009 {
     @BeforeMethod
     public void beforeMethod() {
 
-        System.out.println("Quiero registrar mi solicitud de constancia - test");
-        Report = new report();
+        System.out.println("Starting CED009 tests");
+
     }
 
     @Test(priority = 2, testName = ("CED009_1 - Interesado registra los datos academicos."))
     public void CED009_1() throws InterruptedException, ParseException {
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-        lp.applyForCertificate();
-        lp.acceptTerms();
-        afcp.fillForm("departmentCED009_1","provinceCED009_1", "districtCED009_1", "modularCodeCED009_1");
         personTypePOM ptP = new personTypePOM(Driver);
         ptP.selectPersonal();
-        atd.fillForm("FRANCISCO","BASILIA","1952","jul","28",10521082);
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
+
+        lp.applyForCertificate();
+        lp.acceptTerms();
+        afcp.fillForm("department","province", "district", "modularCode");
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
+
         //añadir acerto que si nohayt nada
 
 
@@ -70,13 +72,15 @@ public class CED009 {
     @Test(priority = 2, testName = ("CED009_2 - Interesado registra los datos de contacto."))
     public void CED009_2() throws InterruptedException, ParseException {
 
-           Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -84,12 +88,14 @@ public class CED009 {
     public void CED009_3() throws InterruptedException, ParseException {
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -102,12 +108,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -120,12 +128,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -138,12 +148,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
     @Test(priority = 2, testName = ("CED009_7 - El interesado no continúa con el proceso."))
@@ -155,12 +167,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -173,12 +187,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 
@@ -191,12 +207,14 @@ public class CED009 {
         aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
+        personTypePOM ptP = new personTypePOM(Driver);
+        ptP.selectPersonal();
+
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectPersonal();
-        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        atd.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344,"department1","province1","district1");
+
         //añadir acerto que si nohayt nada
     }
 

@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -27,8 +28,9 @@ public class CED006 {
 
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
+        context.setAttribute("Driver", Driver);
         lp = new landingPOM(Driver);
         afcp = new applyForCertificatePOM(Driver);
         att = new aplicantTypeTutorPOM(Driver);
@@ -40,8 +42,8 @@ public class CED006 {
     @BeforeMethod
     public void beforeMethod() {
 
-        System.out.println("Starting Demo Testing Minedu");
-        Report = new report();
+        System.out.println("Starting CED006 tests");
+
     }
 
     @Test(priority = 1, testName = ("CED006_1 - Interesado 'Apoderado' ingresa todos los campos obligatorios válidos."))
@@ -55,18 +57,7 @@ public class CED006 {
         tacp.acceptTerms();
         ptP.selectTutor();
         att.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-        Driver.superwait();
-/*
-        //*[@id="classic-modal-slide-description"]/p    los datos ingresados no coinciden con los datos reniec
-        /html/body/div[4]/div[3]/div/div[3]/button       boton de aceptar
-        
- */
+
 
         Assert.assertEquals(att.checkElements(), true);
     }
@@ -86,6 +77,9 @@ public class CED006 {
 
 
         att.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
+        Assert.assertEquals(LpTest.checkElementsInformativeText() , true );
+        Assert.assertEquals(LpTest.checkElementsmultipleCertificateBtn() , true );
+        Assert.assertEquals(LpTest.checkElementsmultipleCertificateImage() , true );
     }
 
     @Test(priority = 3, testName = ("Interesado 'Apoderado' no desea continuar con el proceso."))
@@ -100,7 +94,7 @@ public class CED006 {
         att.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
         att.pressCancel();
         att.pressConfirmAccept();
-        try {
+
             Assert.assertEquals(LpTest.checkElementsMineduLogo(), true );
             Assert.assertEquals(LpTest.checkElementsCertificadoEstudiosTitle() , true );
             Assert.assertEquals(LpTest.checkElementsInformativeText() , true );
@@ -112,12 +106,8 @@ public class CED006 {
             Assert.assertEquals(LpTest.checkElementssingleCertificateBtn() , true );
             Assert.assertEquals(LpTest.checkElementssingleCertificateImage() , true );
             Assert.assertEquals(LpTest.checkElementssingleCertificateText() , true );
-            System.out.println("todos los elementos son visibles");
 
 
-        } catch (Throwable e) {
-            System.out.println("one elemnt is not present");
-        }
 
     }
 
@@ -133,6 +123,8 @@ public class CED006 {
         ptP.selectTutor();
         att.fillForm("ZENON","MARIA DILCIA","2001","dic","25",77534344);
         ptP.doNothingWaitForAlert();
+        Assert.assertEquals(ptP.checkdoNothingButton(), true );
+
     }
 
 

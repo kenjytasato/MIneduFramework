@@ -37,6 +37,7 @@ public class landingPage {
     WebElement CancelBtn;
     @FindBy(xpath="/html/body/div[4]/div[3]/div/div[2]/button[2]")
     WebElement AcceptBtn;
+
     /////////
 
        @FindBy(xpath="//*[@id='root']/div[1]/div/div[3]/div[2]/div[2]/div/div[1]/img")

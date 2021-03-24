@@ -35,7 +35,7 @@
         <selenium.version>3.141.59</selenium.version>
         <phantomjsdriver.version>1.4.3</phantomjsdriver.version>
         <webdrivermanager.version>4.0.0</webdrivermanager.version>
-        <testng.version>6.13</testng.version>
+        <testng.version>6.14.3</testng.version>
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <appium-java-client.version>7.1.0</appium-java-client.version>
 
@@ -158,6 +158,17 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+
+                <configuration>
+                      <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>listeners.TestListeners</value>
+                        </property>
+                    </properties>
+                </configuration>
+
+
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>

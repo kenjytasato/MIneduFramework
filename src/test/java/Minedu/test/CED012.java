@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -23,8 +24,9 @@ public class CED012 {
     report Report = null;
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
+        context.setAttribute("Driver", Driver);
 
     }
 
@@ -34,7 +36,7 @@ public class CED012 {
         System.out.println("Starting Demo Testing Minedu");
         Report = new report();
     }
-
+/*
 /*
     @Test(priority = 1, testName = ("demo"))
     public void commonLogin() throws InterruptedException {
@@ -99,7 +101,7 @@ public class CED012 {
             System.out.println("one elemnt is not present");
         }
     }
-
+/*
     @Test(priority = 2, testName = ("CED003 - Quiero aceptar los terminos y condiciones"))
     public void CED003_1() throws InterruptedException, ParseException {
 
@@ -207,39 +209,9 @@ public class CED012 {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    /*
-    @Test(priority = 2, testName = ("CED004_2 - Quiero ingresar a una opcion tipo de usuario-tutor"))
-    public void CED004_2() throws InterruptedException, ParseException {
-
-        landingPOM lp = new landingPOM(Driver);
-        landingPage LpTest = new landingPage(Driver);
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
-
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-        lp.applyForCertificate();
-        lp.acceptTerms();
-        afcp.fillForm("department","province", "district", "modularCode");
-        personTypePOM ptP = new personTypePOM(Driver);
-        ptP.selectTutor();
-        ptP.doNothingWaitForAlert();
-    }
-*/
-
-
-
     @AfterClass
     public void teardown() {
         Driver.driver.manage().deleteAllCookies();
         Driver.teardown();
     }
-}
+}*/}

@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -20,16 +21,16 @@ public class CED004 {
     report Report = null;
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
-
+        context.setAttribute("Driver", Driver);
     }
 
     @BeforeMethod
     public void beforeMethod() {
 
-        System.out.println("Starting Demo Testing Minedu");
-        Report = new report();
+        System.out.println("Starting CED004 tests");
+
     }
 
     @Test(priority = 2, testName = ("CED004_1 - Quiero ingresar a una opcion tipo de usuario-personal"))
@@ -45,10 +46,12 @@ public class CED004 {
 
         termsAndConditionsPOM tacp = new termsAndConditionsPOM(Driver);
         tacp.acceptTerms();
+        aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
 
         personTypePOM ptP = new personTypePOM(Driver);
         ptP.selectPersonal();
-        //ptP.doNothingWaitForAlert();
+        Assert.assertEquals(atd.checkElements(), true);
+
 
 
     }
@@ -64,17 +67,13 @@ public class CED004 {
         lp.applyForCertificate();
         lp.acceptTerms();
         afcp.fillForm("department", "province", "district", "modularCode");
-
         termsAndConditionsPOM tacp = new termsAndConditionsPOM(Driver);
         tacp.acceptTerms();
-
         personTypePOM ptP = new personTypePOM(Driver);
         ptP.selectTutor();
+        aplicantTypeTutorPOM att = new aplicantTypeTutorPOM(Driver);
 
-
-
-
-        //ptP.doNothingWaitForAlert();
+        Assert.assertEquals(att.checkElements(), true);
 
     }
 
@@ -91,7 +90,7 @@ public class CED004 {
         afcp.fillForm("department", "province", "district", "modularCode");
         termsAndConditionsPOM tacp = new termsAndConditionsPOM(Driver);
         tacp.cancel();
-        try {
+
             Assert.assertEquals(LpTest.checkElementsMineduLogo(), true );
             Assert.assertEquals(LpTest.checkElementsCertificadoEstudiosTitle() , true );
             Assert.assertEquals(LpTest.checkElementsInformativeText() , true );
@@ -103,17 +102,6 @@ public class CED004 {
             Assert.assertEquals(LpTest.checkElementssingleCertificateBtn() , true );
             Assert.assertEquals(LpTest.checkElementssingleCertificateImage() , true );
             Assert.assertEquals(LpTest.checkElementssingleCertificateText() , true );
-            System.out.println("todos los elementos son visibles");
-
-
-        } catch (Throwable e) {
-            System.out.println("one elemnt is not present");
-        }
-
-
-
-
-        //ptP.doNothingWaitForAlert();
 
     }
 
@@ -131,14 +119,9 @@ public class CED004 {
         termsAndConditionsPOM tacp = new termsAndConditionsPOM(Driver);
         tacp.cancelandcontinue();
 
-        try {
-            Assert.assertEquals(tacp.checktitle(), true );
-            System.out.println("todos los elementos son visibles");
-        } catch (Throwable e) {
-            System.out.println("case fail");
-        }
 
-        //ptP.doNothingWaitForAlert();
+            Assert.assertEquals(tacp.checktitle(), true );
+
 
     }
 
@@ -158,7 +141,7 @@ public class CED004 {
         tacp.acceptTerms();
         personTypePOM ptP = new personTypePOM(Driver);
         ptP.doNothingWaitForAlert();
-
+        Assert.assertEquals(ptP.checkdoNothingButton(), true );
     }
 
     @AfterClass

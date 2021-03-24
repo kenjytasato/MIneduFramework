@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -23,8 +24,9 @@ public class CED011 {
     report Report = null;
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
+        context.setAttribute("Driver", Driver);
 
     }
 
@@ -36,51 +38,13 @@ public class CED011 {
     }
 
 /*
-    @Test(priority = 1, testName = ("demo"))
-    public void commonLogin() throws InterruptedException {
-
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
-
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-
-
-        landingPOM lp = new landingPOM(Driver);
-
-        afcp.fillForm("department", "province", "district", "modularCode");
-        lp.acceptTermAndConditions();
-
-        Assert.assertEquals(lp.checkmodularCode(), "0334722");
-
-
-        applyForCertificatePage afc = new applyForCertificatePage(Driver);
-
-    }*/
-/*
-    @Test(priority = 1, testName = ("CED002"))
-    public void CED002() throws InterruptedException, ParseException {
-
-        landingPOM lp = new landingPOM(Driver);
-        aplicantTypeStudientPOM atd = new aplicantTypeStudientPOM(Driver);
-        personTypePOM ptP = new personTypePOM(Driver);
-        applyForCertificatePOM afcp = new applyForCertificatePOM(Driver);
-
-        Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
-
-        lp.applyForCertificate();
-        afcp.fillForm("department", "province", "district", "modularCode");
-        lp.acceptTermAndConditions();
-        ptP.selectPersonal();
-        atd.fillForm("ZENON", "MARIA DILCIA", "2001", "dic", "25", 77534344);
-        Assert.assertEquals(lp.checkmodularCode(), "0334722");
-    }*/
-
     @Test(priority = 2, testName = ("CED002 - // Quiero ingresar a la opción 'Solicitar Constancia'"))
     public void CED002() throws InterruptedException, ParseException {
 
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
         landingPage LpTest = new landingPage(Driver);
 
-        try {
+
             Assert.assertEquals(LpTest.checkElementsMineduLogo(), true );
             Assert.assertEquals(LpTest.checkElementsCertificadoEstudiosTitle() , true );
             Assert.assertEquals(LpTest.checkElementsInformativeText() , true );
@@ -95,9 +59,7 @@ public class CED011 {
             System.out.println("todos los elementos son visibles");
 
 
-        } catch (Throwable e) {
-            System.out.println("one elemnt is not present");
-        }
+
     }
 
     @Test(priority = 2, testName = ("CED003 - Quiero aceptar los terminos y condiciones"))

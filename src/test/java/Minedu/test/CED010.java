@@ -3,6 +3,7 @@ package Minedu.test;
 import driver.driver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -23,8 +24,9 @@ public class CED010 {
     report Report = null;
 
     @BeforeClass
-    public void setupEnv() {
+    public void setupEnv(ITestContext context) {
         Driver = new driver(1);
+        context.setAttribute("Driver", Driver);
 
     }
 
@@ -73,7 +75,7 @@ public class CED010 {
         atd.fillForm("ZENON", "MARIA DILCIA", "2001", "dic", "25", 77534344);
         Assert.assertEquals(lp.checkmodularCode(), "0334722");
     }*/
-
+/*
     @Test(priority = 2, testName = ("CED002 - // Quiero ingresar a la opción 'Solicitar Constancia'"))
     public void CED002() throws InterruptedException, ParseException {
 

@@ -33,7 +33,7 @@ public class  ElementsTest {
         System.out.println("Starting Demo Testing Minedu");
         Report = new report();
     }
-
+/*
     @Test(priority = 0)
     public void elementsPresent() throws InterruptedException {
         Driver.goto_url("https://certificado.minedu.gob.pe:4545/");
@@ -88,7 +88,7 @@ public class  ElementsTest {
         Driver.implicitwait();
         Driver.implicitwait();
 */
-
+/*
     }
 
     @Test(priority = 2, testName = ("e2e"))
@@ -126,4 +126,4 @@ public class  ElementsTest {
     {   Driver.driver.manage().deleteAllCookies();
         Driver.teardown();
     }
-}
+}*/}
